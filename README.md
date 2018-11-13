@@ -1,2 +1,2 @@
-# leetlearn
-learn from coding
+# Leetlearn
+Learn from coding
