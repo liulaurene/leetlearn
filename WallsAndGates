@@ -1,0 +1,69 @@
+// Depth First Search
+
+class Solution {
+    public void wallsAndGates(int[][] rooms) {
+        for (int i = 0; i < rooms.length; i++ )
+            for (int j = 0; j < rooms[0].length; j ++)
+                if (rooms[i][j] == 0)
+                    DFS(rooms, i, j, 0);        
+    }
+    
+    private void DFS(int[][] room, int i, int j, int step) {
+        
+        if(i < 0 || i >= room.length || j < 0 || j >= room[0].length || room[i][j] < step)  
+            return ;
+
+/* room[i][j] < step solve 3 problems:  1. don't update walls and gates  2. stop earlier when you find the previous gate has given shorter distance than the current one  3. distinguish the visited and not-visited nodes (the visited can only have smaller distance) */
+
+        
+        room[i][j] = step;
+        
+        DFS(room, i, j + 1, step + 1);
+        DFS(room, i, j - 1, step + 1);
+        DFS(room, i - 1, j, step + 1);
+        DFS(room, i + 1, j, step + 1);
+        
+        
+    }
+}
+
+
+/* Breadth First Search
+
+class Solution {
+    int[] directX = new int[]{0, 1, 0, -1};
+    int[] directY = new int[]{1, 0, -1, 0};
+    public void wallsAndGates(int[][] rooms) {
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j < rooms[0].length; j++) {
+                if (rooms[i][j] == 0) {
+                   bfs(rooms, i, j);
+                }
+            }
+        }
+        return;
+    }
+    public void bfs(int[][] rooms, int x, int y) {
+        int m = rooms.length, n = rooms[0].length;
+        Deque<Integer> Q = new ArrayDeque<>();
+        Q.offer(x * n + y);
+        while (!Q.isEmpty()) {
+            int address = Q.poll();
+            int i = address / n;
+            int j = address % n;
+            for (int k = 0; k < 4; k++) {
+                int row = i + directX[k];
+                int col = j + directY[k];
+                if (row >= 0 && row < rooms.length && col >= 0 && 
+                    col < rooms[0].length && rooms[row][col] > (rooms[i][j] + 1)) {
+                    rooms[row][col] = rooms[i][j] + 1;
+                    Q.offer(row * n + col);
+                }
+            }
+        }
+       
+        
+    }
+   
+}
+*/
