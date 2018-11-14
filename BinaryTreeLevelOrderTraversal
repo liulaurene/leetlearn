@@ -1,0 +1,73 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+// Use recursive to solve
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        dfs(ans, root, 0);
+        return ans;
+    }
+    
+    private void dfs(List<List<Integer>> ans, TreeNode root, int level) {
+        if (root == null) {
+            return;
+        }
+        if (ans.size() <= level) {
+            ans.add(new ArrayList<Integer>());          // add an element(a list) when you need
+        }
+        ans.get(level).add(root.val);                   // list.get: Returns the element at the specified position in this list
+        dfs(ans, root.left, level + 1);
+        dfs(ans, root.right, level + 1);
+    }
+}
+
+
+
+/* Use Queue to solve
+class Solution {
+    
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root != null)
+            q.offer(root);
+        levelOrder(q, list);
+        return list;
+    }
+    
+    private void levelOrder(Queue<TreeNode> queue, List<List<Integer>> list) {
+
+        TreeNode curr;
+        
+        while(!queue.isEmpty()) {
+
+            int n = queue.size();
+            List<Integer> sublist = new LinkedList<>();     // where to construct a new list
+
+            for(int i = 0; i < n; i++)
+            {
+                curr = queue.poll();            // when to poll 
+                sublist.add(curr.val);
+                if(curr.left != null)
+                    queue.offer(curr.left);
+                if(curr.right != null)
+                    queue.offer(curr.right);
+            }
+            list.add(sublist);
+        }
+        
+
+    }
+}
+*/
