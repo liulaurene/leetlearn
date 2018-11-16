@@ -1,0 +1,38 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        
+        StringBuilder sb = new StringBuilder();
+        Stack<Integer> stack = new Stack<>();
+        
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        
+        int carry = 0;
+        int sum = 0;
+        
+        while(i >= 0 || j >= 0)
+        {
+            sum = carry;
+            if(i >= 0)
+                sum += a.charAt(i--) - '0';     // char - '0' is the integer, or it is the ASCII value
+            if(j >= 0)
+                sum += b.charAt(j--) - '0';
+            
+            stack.push(sum % 2);                // push the value to stack
+            carry = sum / 2;                    // carry the overflow to next digit
+            
+        }
+        
+        if(carry != 0)                      // consider the overflow
+            sb.append(1);
+        
+        while(! stack.isEmpty())            // stack can help reverse the string
+        {
+            sb.append(stack.pop());
+        }
+        
+        return sb.toString();
+        
+        
+    }
+}
