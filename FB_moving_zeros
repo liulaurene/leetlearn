@@ -1,0 +1,22 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int index = 0;
+        
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(nums[i] != 0)
+                nums[index++] = nums[i];      // index works as a count to sum the non-zero elements, and put them in order
+        }  
+        
+        while(index < nums.length)
+            nums[index++] = 0;
+        
+    }
+}
+
+/*
+First time I saw this problem, I came up with a very troubling solution, and I got wrong. The side value is wrong and I
+couldn't explain my algorithm clearly. During I thought about my solution, I found I made it diffcult.
+Using a index denoting the positon to solve this problem is quite concise.
+Using O(N) time, after going through the array, we get the answer.
+*/
