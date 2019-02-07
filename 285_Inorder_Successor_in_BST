@@ -1,0 +1,48 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+// inorder traversal first
+class Solution {
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if(root == null || p == null) return null;
+        List<TreeNode> list = new LinkedList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        while(!stack.isEmpty() || root != null) {
+            while(root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            list.add(root);
+            root = root.right;
+        }
+        Iterator it = list.iterator();
+        while(it.hasNext()) {
+            if(it.next() == p && it.hasNext())
+                return (TreeNode)it.next();
+        }
+        return null;
+    }
+}
+
+// recursive way
+class Solution {
+  public TreeNode successor(TreeNode root, TreeNode p) {
+    if (root == null)
+      return null;
+
+    if (root.val <= p.val) {
+      return successor(root.right, p);
+    } else {
+      TreeNode left = successor(root.left, p);
+      return (left != null) ? left : root;
+    }
+  }
+}
